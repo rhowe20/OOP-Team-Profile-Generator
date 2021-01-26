@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "save": "^2.4.0"
+  },
+  "name": "OOP-Team-Profile-Generator",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhowe20/OOP-Team-Profile-Generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhowe20/OOP-Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/rhowe20/OOP-Team-Profile-Generator#readme"
+}
