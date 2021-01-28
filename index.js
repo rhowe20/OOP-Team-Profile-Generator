@@ -2,9 +2,13 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
+const Intern = require('./lib/intern');
 
+managerPrompt();
 
-const managerQuestions = [
+function managerPrompt(){
+inquirer
+.prompt([
   {
     type: 'input',
     message: 'Welcome! What is your team manager\'s name?',
@@ -31,14 +35,29 @@ const managerQuestions = [
         'I am done making my team!'
     ]
   }
-];
-
-inquirer
-.prompt(managerQuestions).then(response => {
+])
+  .then(response => {
   const manager = new Manager(response.managerName, response.managerID, response.managerEmail, response.managerOffice);
-});
 
-const engineerQuestions = [
+  const managerAnswers = [];
+
+  managerAnswers.push(manager);
+  console.log(managerAnswers)
+  if(response.newEmployee === 'Engineer'){
+    engineerPrompts();
+  }else if(response.newEmployee === 'Intern'){
+    internPrompts();
+  }else{
+    console.log('Thank you! Your team is all set up!')
+  }
+})};
+
+
+
+function engineerPrompts(){
+
+  inquirer
+  .prompt([
   {
     type: 'input',
     message: 'What is the engineer\'s name?',
@@ -54,50 +73,74 @@ const engineerQuestions = [
   },{
     type: 'list',
     message: 'Thank you! What would you like to do next?',
-    name: 'engineerChoices',
+    name: 'newEmployee',
     choices: [
       'Intern',
       'Engineer',
       'I am done making my team!'
     ]
   }
-]
+])
+  .then(response => {
+  const engineer = new Engineer(response.engineerName, response.engineerID, response.engineerGithub);
 
-inquirer
-.prompt(engineerQuestions).then(response => {
-  const engineer = new Engineer(response.engineerName, response.engineerID, response.engineerEmail, response.engineerOffice);
-});
+  const engineerAnswers = [];
 
-const internQuestions = [
+  engineerAnswers.push(engineer);
+  console.log(engineerAnswers)
+  if(response.newEmployee === 'Engineer'){
+    engineerPrompts();
+  }else if(response.newEmployee === 'Intern'){
+    internPrompts();
+  }else{
+    console.log('Thank you! Your team is all set up!')
+  }
+})};
+
+
+
+function internPrompts(){
+
+  inquirer
+  .prompt([
   {
     type: 'input',
     message: 'What is the Intern\'s name?',
-    name: 'InternName'
+    name: 'internName'
   },{
     type: 'input',
     message: 'What is the Intern\'s ID number?',
-    name: 'InternID'
+    name: 'internID'
   },{
     type: 'input',
     message: 'What is the Intern\'s school name?',
-    name: 'InternGithub'
+    name: 'internSchool'
   },{
     type: 'list',
     message: 'Thank you! What would you like to do next?',
-    name: 'InternChoices',
+    name: 'newEmployee',
     choices: [
       'Intern',
       'Engineer',
       'I am done making my team!'
     ]
   }
-]
+])
+.then(response => {
+  const intern = new Intern(response.internName, response.internID, response.internschool);
 
-inquirer
-.prompt(internQuestions).then(response => {
-  const intern = new Intern(response.internName, response.internID, response.internEmail, response.internOffice);
-});
+  const internAnswers = [];
 
+  internAnswers.push(intern);
+  console.log(internAnswers)
+  if(response.newEmployee === 'Engineer'){
+    engineerPrompts();
+  }else if(response.newEmployee === 'Intern'){
+    internPrompts();
+  }else{
+    console.log('Thank you! Your team is all set up!')
+  }
+})};
 
 // 1. predefine the 3 classes/constructor functions for the three types of employees : manager, engineer, intern
 // 2. get info from the client about each employee to be added
@@ -115,18 +158,18 @@ inquirer
 
 
 
-function Employee(name, id) {
-    this.name = name;
-    this.id = id;
-    this.buildHtml = function buildHtml() {
-      console.log(this.name);
-      console.log(this.id);
-      console.log(this.role);
-    }
-  }
-  function Manager(name, id, role) {
-    this.role = role;
-    Employee.call(this, name, id);
-  }
-  const manager = new Manager('A', 'B', 'C');
-  manager.buildHtml();
+// function Employee(name, id) {
+//     this.name = name;
+//     this.id = id;
+//     this.buildHtml = function buildHtml() {
+//       console.log(this.name);
+//       console.log(this.id);
+//       console.log(this.role);
+//     }
+//   }
+//   function Manager(name, id, role) {
+//     this.role = role;
+//     Employee.call(this, name, id);
+//   }
+//   const manager = new Manager('A', 'B', 'C');
+//   manager.buildHtml();
