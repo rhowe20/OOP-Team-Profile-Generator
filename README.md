@@ -19,3 +19,9 @@ Once the dependencies have been downloaded, the user is ready to open the integr
 # Usage
 
 To use this application, the user will need to go through the prompted questions in their terminal. Once completed, the program will automatically generate an HTML file that can be opened using their default browser. 
+
+![Example](https://github.com/rhowe20/OOP-Team-Profile-Generator/blob/main/images/employee-tracker-example.png)
+
+# Issues
+
+The biggest issue I am running into is the "undefined" when generating the extra item in the js. Any suggestions are welcome!
