@@ -77,7 +77,6 @@ function createHtml(employeeArray){
   let employeeHtml = '';
   employeeArray.forEach(function (employee){
     employeeHtml += `
-    
     <div class="row new-card">
     <div class="col s12 m5">
       <div class="card-panel pink lighten-3">
