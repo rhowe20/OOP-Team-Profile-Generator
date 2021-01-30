@@ -60,113 +60,70 @@ function createEmployee(){
           emp = new Manager(name, id, email, extra);
       } else if (role === 'Engineer') {
           emp = new Engineer(name, id, email, extra);
-      } else {
+      } else if(role === 'Intern'){
           emp = new Intern(name, id, email, extra);
       }
       handleAnswers.push(emp);
-      createCards(emp)
-
-  .then(function() {
+      console.log(handleAnswers)
       if (newEmployee === true) {
           createEmployee();
       } else {
-          // endHtml();
-      }
-  });
+          finished(handleAnswers);
+      };
   })
 })};
 
-// create html
-
-function createHtml(){
+function createHtml(employeeArray){
+  let employeeHtml = '';
+  employeeArray.forEach(function (employee){
+    employeeHtml += `
+    
+    <div class="row new-card">
+    <div class="col s12 m5">
+      <div class="card-panel pink lighten-3">
+        <span class="white-text">
+          ${employee.name}
+          ${employee.id}
+          ${employee.email}
+          ${employee.extra}
+        </span>
+      </div>
+    </div>
+  </div>
+  `
+  })
   const html = `
   <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-        <link rel="stylesheet" href="./index.css">
-        <title></title>
-    </head>
-    <body>
-    
-    <div class="header">
-        <div class="row">
-            <div></div>
-        </div>
-    </div>
-    
-    <div class="container">
-    
-    <div class="row">
-  `
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+      <title>Employee Tracker</title>
+  </head>
+  <body class = 'purple lighten-4'>
+      <nav>
+          <div class="nav-wrapper pink lighten-3">
+          </div>
+        </nav>
+  <div class = 'container'>
+      <h1 class = 'white-text'>Welcome to the Employee Tracker!</h1>
+      <div class="row new-card">
+      ${employeeHtml}
+  </div>
+  
+  </body>
+  `;
+  fs.writeFile('./src/employee-tracker.html', html, function (error) {
+    if (error) {
+        console.log(error);
+    }
+})}
+
+function finished(employeeArray) {
+    createHtml(employeeArray);
+    console.log('Your team directory is complete!');
 }
 
-function createCards(){
-
-  
-
-  const cardHtml = `
-  <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-        <link rel="stylesheet" href="./index.css">
-        <title></title>
-    </head>
-    <body>
-    
-    <div class="header">
-        <div class="row">
-            <div></div>
-        </div>
-    </div>
-    
-    <div class="container">
-    
-    <div class="row">
-  `
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function createHtml(handleAnswers){
-//   fs.writeFile('employee.html', handleAnswers, (err) => { 
-      
-//     if (err) throw err; 
-// }) 
-// }
-
-
+createEmployee()
